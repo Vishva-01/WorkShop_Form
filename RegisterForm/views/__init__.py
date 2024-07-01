@@ -1,0 +1,1 @@
+from .register import registration_form, student_register

@@ -1,0 +1,7 @@
+Django==4.2.7
+django-environ==0.11.2
+pre-commit==3.5.0
+requests==2.31.0
+virtualenv==20.24.7
+razorpay==1.4.2
+environ==1.0

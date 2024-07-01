@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5">
+    <link rel="stylesheet" href="https://codepen.io/chriscoyier/pen/gHnGD">
+    <style>
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: none; /* Initially hide the pop-up */
+            max-width: 80%;
+        }
+    </style>
+</head>
+<body>
+<div class='signup-container'>
+    <div class='left-container'>
+        <img src="{% static 'images/trp.jpg' %}" width="300px">
+    </div>
+    <div class='right-container'>
+        <header>
+            <h1>Prompt Engineering Workshop</h1>
+            <form id="registrationForm" method="post" action="{% url 'register' %}">
+                {% csrf_token %}
+                <div class='set'>
+                    <div class='pets-name'>
+                        <label for='name'>Name</label>
+                        <input id='name' name="name" placeholder="Enter name" type='text' required>
+                    </div>
+                    <div class='pets-name'>
+                        <label for='email'>Email</label>
+                        <input id='email' name="email" placeholder="Enter email" type='email' required>
+                    </div>
+                </div>
+                <div class='set'>
+                    <div class='pets-name'>
+                        <label for="whatsapp">WhatsApp Number</label>
+                        <input type="tel" id="whatsapp" name="whatsapp" placeholder="Enter number" pattern="[0-9]{10}" required>
+                    </div>
+                    <div class='pets-name'>
+                        <label for='phone'>Phone Number</label>
+                        <input id='phone' name="phone" placeholder="Enter number" type='tel' pattern="[0-9]{10}" required>
+                    </div>
+                </div>
+                <div class='set'>
+                    <div class='pets-name'>
+                        <label for='college'>College Name</label>
+                        <input id='college' name="college" placeholder="College name" type='text' required>
+                    </div>
+                    <div class='pets-birthday'>
+                        <label for='birthday'>Birthday</label>
+                        <input id='birthday' name="birthday" placeholder='YYYY-MM-DD' type='date' required>
+                    </div>
+                </div>
+                <div class='set'>
+                    <div class='pets-gender'>
+                        <label for='gender'>Gender</label>
+                        <div class='radio-container'>
+                            <input id='gender-female' name='gender' type='radio' value='F' required>
+                            <label for='gender-female'>Female</label>
+                            <input id='gender-male' name='gender' type='radio' value='M'>
+                            <label for='gender-male'>Male</label>
+                        </div>
+                    </div>
+                </div>
+                <div class='set'>
+                    <div class='pets-name'>
+                        <label for="department">Department</label>
+                        <input id="department" name="department" placeholder="Enter department" type='text' required>
+                    </div>
+                    <div class='pets-name'>
+                        <label for='year'>Year</label>
+                        <input id='year' name="year" placeholder="Enter year" type='number' required>
+                    </div>
+                </div>
+                <footer>
+                    <marquee>
+                        <p style="color: red;">*Limited Slots are left</p>
+                    </marquee>
+                    <div class='set'>
+                        <button type="submit" class="submit-btn" id="submitBtn">Submit</button>
+                    </div>
+                </footer>
+            </form>        
+        </header>
+    </div>
+</div>
+
+<!-- Popup div -->
+<div class="popup" id="popup">
+    <div id="popupContent">
+    </div>
+</div>
+
+<script>
+    document.getElementById("registrationForm").addEventListener("submit", function(event) {
+        event.preventDefault(); 
+
+        let formData = new FormData(this);
+
+        fetch("{% url 'register' %}", {
+            method: "POST",
+            body: formData,
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}"
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                let popupContent = `
+                <html>
+                <head>
+                    <title>Registration Details</title>
+                    <style>
+                        h2 {
+                            color: #444;
+                            border-bottom: 2px solid #ddd;
+                            padding-bottom: 5px;
+                        }
+                        p {
+                            font-size: 16px;
+                            margin: 10px 0;
+                        }
+                        a {
+                            display: inline-block;
+                            margin-top: 20px;
+                            padding: 10px 20px;
+                            background-color: #3399cc;
+                            color: #fff;
+                            text-decoration: none;
+                            border-radius: 5px;
+                        }
+                        a:hover {
+                            background-color: #287ba0;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h2>Registration Details</h2>
+                    <p><strong>Name:</strong> ${data.name}</p>
+                    <p><strong>Email:</strong> ${data.email}</p>
+                    <p><strong>WhatsApp Number:</strong> ${data.whatsapp_number}</p>
+                    <h3>Payment Form</h3>
+                    <p><a href="https://rzp.io/l/aMyJjgP" target="_blank">Proceed to Payment</a></p>
+                </body>
+                </html>
+            `;
+                document.getElementById("popup").style.display = "block";
+                document.getElementById("popupContent").innerHTML = popupContent;
+            } else {
+                alert("An error occurred while submitting your form. Please try again.");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("An error occurred while submitting your form. Please try again.");
+        });
+    });
+</script>
+</body>
+</html>
