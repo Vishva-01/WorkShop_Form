@@ -36,52 +36,56 @@
                 {% csrf_token %}
                 <div class='set'>
                     <div class='pets-name'>
-                        <label for='name'>Name *</label>
+                        <label for='name'>Name <span class="warning">*</span></label>
                         <input id='name' name="name" placeholder="Enter name" type='text' required>
                     </div>
                     <div class='pets-name'>
-                        <label for='email'>Email *</label>
+                        <label for='email'>Email <span class="warning">*</span></label>
                         <input id='email' name="email" placeholder="Enter email" type='email' required>
                     </div>
                 </div>
                 <div class='set'>
                     <div class='pets-name'>
-                        <label for="whatsapp">WhatsApp Number *</label>
+                        <label for="whatsapp">WhatsApp Number <span class="warning">*</span></label>
                         <input type="number" id="whatsapp" name="whatsapp" placeholder="Enter number" pattern="[0-9]{10}" oninput="this.value = this.value.slice(0, 10)" maxlength="10" required>
                     </div>
                     <div class='pets-name'>
-                        <label for='phone'>Phone Number *</label>
+                        <label for='phone'>Phone Number <span class="warning">*</span></label>
                         <input id='phone' type="number" name="phone" placeholder="Enter number" pattern="[0-9]{10}" oninput="this.value = this.value.slice(0, 10)" maxlength="10" required>
                     </div>
                 </div>
                 <div class='set'>
                     <div class='pets-name'>
-                        <label for='college'>College Name *</label>
+                        <label for='college'>College Name <span class="warning">*</span></label>
                         <input id='college' name="college" placeholder="College name" type='text' required>
                     </div>
                     <div class='pets-birthday'>
-                        <label for='birthday'>Date of Birth *</label>
+                        <label for='birthday'>Date of Birth <span class="warning">*</span></label>
                         <input id='birthday' name="birthday" placeholder='YYYY-MM-DD' type='date' required max="2006-12-31">
                     </div>
                 </div>
-                <div class='set'>
-                    <div class='pets-gender'>
+                    <!-- <div class='pets-gender'>
                         <label for='gender'>Gender *</label>
                         <div class='radio-container'>
-                            <input id='gender-male' name='gender' type='radio' value='M'>
                             <label for='gender-male'>Male</label>
-                            <input id='gender-female' name='gender' type='radio' value='F' required>
+                            <input id='gender-male' name='gender' type='radio' value='M'>
                             <label for='gender-female'>Female</label>
+                            <input id='gender-female' name='gender' type='radio' value='F' required>
+                            
                         </div>
-                    </div>
-                </div>
+                    </div> -->
+                <input id="male" name='gender' type='radio' value='M'>
+                <label id="male_label">Male<span class="warning">*</span></label>
+                <input id="female" name='gender' type='radio' value='F' required>
+                <label id="female_label">Female<span class="warning">*</span></label>
+
                 <div class='set'>
                     <div class='pets-name'>
-                        <label for="department">Department *</label>
+                        <label for="department">Department <span class="warning">*</span></label>
                         <input id="department" name="department" placeholder="Enter department" type='text' required>
                     </div>
                     <div class='pets-name'>
-                        <label for='year'>Year of Passing *</label>
+                        <label for='year'>Year of Passing <span class="warning">*</span></label>
                         <input id='year' name="year" placeholder="Enter year" type='number' oninput="this.value = this.value.slice(0, 4)" maxlength="4" required>
                     </div>
                 </div>
