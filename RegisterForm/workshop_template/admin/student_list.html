@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Students List</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/student_css.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Students List</h1>
+
+        <form method="get" class="search-form">
+            <input type="text" name="q" placeholder="Search..." value="{{ query }}">
+            <select name="is_paid">
+                <option value="">All</option>
+                <option value="True" {% if is_paid == 'True' %}selected{% endif %}>Paid</option>
+                <option value="False" {% if is_paid == 'False' %}selected{% endif %}>Not Paid</option>
+            </select>
+            <button type="submit">Search</button>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone Number</th>
+                    <th>WhatsApp Number</th>
+                    <th>Email</th>
+                    <th>Gender</th>
+                    <th>Department</th>
+                    <th>Year</th>
+                    <th>Is Paid</th>
+                    <th>Enrolled Date</th>
+                    <th>Enrolled Time</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in page_obj %}
+                <tr>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.phone_number }}</td>
+                    <td>{{ student.whatsapp_number }}</td>
+                    <td>{{ student.email }}</td>
+                    <td>{{ student.get_gender_display }}</td>
+                    <td>{{ student.department }}</td>
+                    <td>{{ student.year }}</td>
+                    <td>{{ student.is_paid }}</td>
+                    <td>{{ student.enrolled_on|date:"Y-m-d" }}</td>
+                    <td>{{ student.enrolled_on|date:"H:i:s" }}</td>
+                    <td>
+                        {% if not student.is_paid %}
+                            <form method="post" action="{% url 'mark_as_paid' student.id %}">
+                                {% csrf_token %}
+                                <button type="submit">Mark as Paid</button>
+                            </form>
+                        {% else %}
+                            <span>Paid</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1{% if query %}&q={{ query }}{% endif %}{% if is_paid %}&is_paid={{ is_paid }}{% endif %}">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}{% if query %}&q={{ query }}{% endif %}{% if is_paid %}&is_paid={{ is_paid }}{% endif %}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}{% if query %}&q={{ query }}{% endif %}{% if is_paid %}&is_paid={{ is_paid }}{% endif %}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}{% if query %}&q={{ query }}{% endif %}{% if is_paid %}&is_paid={{ is_paid }}{% endif %}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+</body>
+</html>
