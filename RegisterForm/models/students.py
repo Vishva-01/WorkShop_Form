@@ -16,6 +16,7 @@ class Students(models.Model):
     department = models.CharField(max_length=256)
     year = models.IntegerField()
     is_paid = models.BooleanField(default=False)
+    enrolled_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
         return f"{self.name} - {self.is_paid} - {self.email}"
