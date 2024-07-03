@@ -84,9 +84,20 @@
                         <label for="department">Department <span class="warning">*</span></label>
                         <input id="department" name="department" placeholder="Enter department" type='text' required>
                     </div>
-                    <div class='pets-name'>
+                    <div class='passing-year pets-name'>
                         <label for='year'>Year of Passing <span class="warning">*</span></label>
-                        <input id='year' name="year" placeholder="Enter year" type='number' oninput="this.value = this.value.slice(0, 4)" maxlength="4" required>
+                        <div class="options">
+                            <select style="padding: 8px; border: 1px solid rgba(0, 0, 0, 0.1);" id='year-select' name='year' required>
+                                <option value="" disabled selected>Select year</option>
+                                <option value="2022">2022</option>
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                                <option value="2025">2025</option>
+                                <option value="2026">2026</option>
+                                <option value="2027">2027</option>
+                                <option value="2028">2028</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <footer>
@@ -164,6 +175,7 @@
             `;
                 document.getElementById("popup").style.display = "block";
                 document.getElementById("popupContent").innerHTML = popupContent;
+                document.getElementById("submitBtn").disabled = true;
             } else {
                 alert("An error occurred while submitting your form. Please try again.");
             }

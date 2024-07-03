@@ -23,16 +23,22 @@ def student_list(request):
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+    count = students.count()
 
     return render(request, 'admin/student_list.html', {
         'page_obj': page_obj,
+        'count': count,
         'query': query,
         'is_paid': is_paid,
     })
 
 
 def mark_as_paid(request, id):
-    student = get_object_or_404(Students, id=id)
-    student.is_paid = True
-    student.save()
+    try:
+        student = get_object_or_404(Students, id=id)
+        student.is_paid = True
+        student.save()
+    except Exception as e:
+        print(f"Error marking student {id} as paid: {e}")
+    
     return redirect('student_list')
