@@ -23,9 +23,11 @@ def student_list(request):
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+    count = students.count()
 
     return render(request, 'admin/student_list.html', {
         'page_obj': page_obj,
+        'count': count,
         'query': query,
         'is_paid': is_paid,
     })
