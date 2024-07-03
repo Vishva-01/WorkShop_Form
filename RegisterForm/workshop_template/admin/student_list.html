@@ -20,7 +20,9 @@
             </select>
             <button type="submit">Search</button>
         </form>
-        <p style="text-align: right; color:green; font-weight: bold;">Registered Students : <span>{{count}}</span></p>
+        <div class="btn-group">
+            <p style="text-align: right; color:green; font-weight: bold;">Registered Students : <span>{{count}}</span></p>            
+        </div>    
         <div class="table-wrapper">
             <table>
                 <thead>
@@ -29,11 +31,11 @@
                         <th>Name</th>
                         <th>Phone Numbers</th>
                         <th>Whatsapp Numbers</th>
-                        <th>Email</th>
+                        <!-- <th>Email</th> -->
                         <th>Gender</th>
                         <th>Department</th>
                         <th>College Name</th>
-                        <th>Year</th>
+                        <th>Year of Passing</th>
                         <th>Is Paid</th>
                         <th>Enrolled On</th>
                         <th>Actions</th>
@@ -46,11 +48,17 @@
                         <td data-label="Name">{{ student.name }}</td>
                         <td data-label="Phone Numbers">{{student.phone_number}}</td>
                         <td data-label="Whatsapp Numbers">{{student.whatsapp_number}}</td>
-                        <td data-label="Email">{{ student.email }}</td>
+                        <!-- <td data-label="Email">{{ student.email }}</td> -->
                         <td data-label="Gender">{{ student.get_gender_display }}</td>
                         <td data-label="Department">{{ student.department }}</td>
                         <td data-label="College Name">{{ student.college_name }}</td>
-                        <td data-label="Year">{{ student.year }}</td>
+                        <td data-label="Year">
+                            {% if student.year == 2021 %}
+                                Before 2022
+                            {% else %}
+                                {{ student.year }}
+                            {% endif %}
+                        </td>
                         <td data-label="Is Paid">{{ student.is_paid }}</td>
                         <td data-label="Enrolled On">{{ student.enrolled_on|date:"Y-m-d H:i:s" }}</td>
                         <td data-label="Actions">
