@@ -34,7 +34,11 @@ def student_list(request):
 
 
 def mark_as_paid(request, id):
-    student = get_object_or_404(Students, id=id)
-    student.is_paid = True
-    student.save()
+    try:
+        student = get_object_or_404(Students, id=id)
+        student.is_paid = True
+        student.save()
+    except Exception as e:
+        print(f"Error marking student {id} as paid: {e}")
+    
     return redirect('student_list')
