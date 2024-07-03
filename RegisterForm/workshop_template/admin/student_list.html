@@ -27,7 +27,8 @@
                     <tr>
                         <th>S.No</th>
                         <th>Name</th>
-                        <th>Contact Numbers</th>
+                        <th>Phone Numbers</th>
+                        <th>Whatsapp Numbers</th>
                         <th>Email</th>
                         <th>Gender</th>
                         <th>Department</th>
@@ -43,7 +44,8 @@
                     <tr>
                         <td data-label="S.No">{{ forloop.counter }}</td>
                         <td data-label="Name">{{ student.name }}</td>
-                        <td data-label="Contact Numbers">{{ student.phone_number }} / {{ student.whatsapp_number }}</td>
+                        <td data-label="Phone Numbers">{{student.phone_number}}</td>
+                        <td data-label="Whatsapp Numbers">{{student.whatsapp_number}}</td>
                         <td data-label="Email">{{ student.email }}</td>
                         <td data-label="Gender">{{ student.get_gender_display }}</td>
                         <td data-label="Department">{{ student.department }}</td>
