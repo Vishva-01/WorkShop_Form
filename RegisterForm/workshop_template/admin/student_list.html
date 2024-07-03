@@ -5,13 +5,14 @@
     <title>Students List</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/student_css.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
     <div class="container">
         <h1>Students List</h1>
 
         <form method="get" class="search-form">
-            <input type="text" name="q" placeholder="Search..." value="{{ query }}">
+            <input class="search-input" type="text" name="q" placeholder="Search..." value="{{ query }}">
             <select name="is_paid">
                 <option value="">All</option>
                 <option value="True" {% if is_paid == 'True' %}selected{% endif %}>Paid</option>
@@ -20,51 +21,51 @@
             <button type="submit">Search</button>
         </form>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>S.No</th>
-                    <th>Name</th>
-                    <th>Phone Number</th>
-                    <th>WhatsApp Number</th>
-                    <th>Email</th>
-                    <th>Gender</th>
-                    <th>Department</th>
-                    <th>Year</th>
-                    <th>Is Paid</th>
-                    <th>Enrolled Date</th>
-                    <th>Enrolled Time</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for student in page_obj %}
-                <tr>
-                    <td>{{ forloop.counter }}</td>
-                    <td>{{ student.name }}</td>
-                    <td>{{ student.phone_number }}</td>
-                    <td>{{ student.whatsapp_number }}</td>
-                    <td>{{ student.email }}</td>
-                    <td>{{ student.get_gender_display }}</td>
-                    <td>{{ student.department }}</td>
-                    <td>{{ student.year }}</td>
-                    <td>{{ student.is_paid }}</td>
-                    <td>{{ student.enrolled_on|date:"Y-m-d" }}</td>
-                    <td>{{ student.enrolled_on|date:"H:i:s" }}</td>
-                    <td>
-                        {% if not student.is_paid %}
-                            <form method="post" action="{% url 'mark_as_paid' student.id %}">
-                                {% csrf_token %}
-                                <button type="submit">Mark as Paid</button>
-                            </form>
-                        {% else %}
-                            <span>Paid</span>
-                        {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Name</th>
+                        <th>Contact Numbers</th>
+                        <th>Email</th>
+                        <th>Gender</th>
+                        <th>Department</th>
+                        <th>College Name</th>
+                        <th>Year</th>
+                        <th>Is Paid</th>
+                        <th>Enrolled On</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in page_obj %}
+                    <tr>
+                        <td data-label="S.No">{{ forloop.counter }}</td>
+                        <td data-label="Name">{{ student.name }}</td>
+                        <td data-label="Contact Numbers">{{ student.phone_number }} / {{ student.whatsapp_number }}</td>
+                        <td data-label="Email">{{ student.email }}</td>
+                        <td data-label="Gender">{{ student.get_gender_display }}</td>
+                        <td data-label="Department">{{ student.department }}</td>
+                        <td data-label="College Name">{{ student.college_name }}</td>
+                        <td data-label="Year">{{ student.year }}</td>
+                        <td data-label="Is Paid">{{ student.is_paid }}</td>
+                        <td data-label="Enrolled On">{{ student.enrolled_on|date:"Y-m-d H:i:s" }}</td>
+                        <td data-label="Actions">
+                            {% if not student.is_paid %}
+                                <form method="post" action="{% url 'mark_as_paid' student.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit">Mark as Paid</button>
+                                </form>
+                            {% else %}
+                                <span>Paid</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
         <div class="pagination">
             <span class="step-links">
