@@ -6,6 +6,8 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/student_css.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css">
 </head>
 <body>
     <div class="container">
@@ -29,8 +31,7 @@
                     <tr>
                         <th>S.No</th>
                         <th>Name</th>
-                        <th>Phone Numbers</th>
-                        <th>Whatsapp Numbers</th>
+                        <th>Contact Numbers</th>
                         <!-- <th>Email</th> -->
                         <th>Gender</th>
                         <th>Department</th>
@@ -46,8 +47,7 @@
                     <tr>
                         <td data-label="S.No">{{ forloop.counter }}</td>
                         <td data-label="Name">{{ student.name }}</td>
-                        <td data-label="Phone Numbers">{{student.phone_number}}</td>
-                        <td data-label="Whatsapp Numbers">{{student.whatsapp_number}}</td>
+                        <td data-label="Phone Numbers"><i class="bi bi-telephone">{{student.phone_number}}</i><br><i class="bi bi-whatsapp">{{student.whatsapp_number}}</i></td>
                         <!-- <td data-label="Email">{{ student.email }}</td> -->
                         <td data-label="Gender">{{ student.get_gender_display }}</td>
                         <td data-label="Department">{{ student.department }}</td>
