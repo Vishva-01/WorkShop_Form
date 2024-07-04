@@ -2,9 +2,6 @@ from django.http import HttpResponse
 from RegisterForm.models import Students
 from openpyxl import Workbook
 from openpyxl.utils import get_column_letter
-from openpyxl.styles import NamedStyle
-from openpyxl.drawing.image import Image
-import datetime
 
 def export_students_to_excel(request):
     students = Students.objects.all()
@@ -18,7 +15,6 @@ def export_students_to_excel(request):
         'Gender', 'DOB', 'Department', 'Year Of Passing', 'Is Paid', 'Enrolled On'
     ]
 
-    # Append the header to the sheet
     sheet.append(headers)
 
     for student in students:
