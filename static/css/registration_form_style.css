@@ -18,7 +18,9 @@ body {
   justify-items: center;
   
 }
-
+.warning{
+  color: red;
+}
 .signup-container {
   display: grid;
   grid-template-areas: "left right";
@@ -32,10 +34,7 @@ body {
   text-align: center;
   width: 300px;
   border-radius: 35px 0px 0px 40px; /* editable */
-
   background-size: cover;
-  
-  
 }
 .left-container h1 {
   color: rgba(0, 0, 0, 0.8);
@@ -52,8 +51,14 @@ body {
   transform: rotate(-45deg);
 }
 
+#male, #female{
+  width: 10px;
+  height: 10px;
+}
 
-
+#male_label{
+  margin-right: 20px;
+}
 
 .right-container {
   background: #ffffff;
@@ -234,7 +239,6 @@ body {
     flex-direction: column;
   }
   .right-container label,
-  .right-container input,
   .right-container .pets-photo {
     width: 100%;
   }
