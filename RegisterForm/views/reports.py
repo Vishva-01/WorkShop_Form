@@ -15,7 +15,7 @@ def export_students_to_excel(request):
 
     headers = [
         'Name', 'College Name', 'Phone Number', 'WhatsApp Number', 'Email',
-        'Gender', 'DOB', 'Department', 'Year', 'Is Paid', 'Enrolled On'
+        'Gender', 'DOB', 'Department', 'Year Of Passing', 'Is Paid', 'Enrolled On'
     ]
 
     # Append the header to the sheet
