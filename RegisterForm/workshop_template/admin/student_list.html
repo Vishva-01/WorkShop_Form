@@ -14,7 +14,7 @@
         <h1>Students List</h1>
 
         <form method="get" class="search-form">
-            <input class="search-input" type="text" name="q" placeholder="Search..." value="{{ query }}">
+            <input class="search-input" type="text" name="q" autocomplete="off" placeholder="Search..." value="{{ query }}">
             <select name="is_paid">
                 <option value="">All</option>
                 <option value="True" {% if is_paid == 'True' %}selected{% endif %}>Paid</option>
